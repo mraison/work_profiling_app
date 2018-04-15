@@ -1,5 +1,6 @@
+from database.alchemy_session import alchemy_session
 from database.db_connections import profilesDB
-from work_profiling_app.modules.daos.alchemy_session import alchemy_session
+
 
 class profilesDao(object):
     def __init__(self, alchemy=None):
