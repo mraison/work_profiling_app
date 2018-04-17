@@ -20,13 +20,16 @@ class alchemy_session:
         # session.rollback()
         self.db_connection = DBSession()
 
+
     def insert(self, row):
         self.db_connection.add(row)
         self.db_connection.commit()
 
+
     def delete(self, row):
         self.db_connection.delete(row)
         self.db_connection.commit()
+
 
     def update(self):
         self.db_connection.commit()

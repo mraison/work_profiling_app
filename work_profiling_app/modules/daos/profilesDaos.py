@@ -10,16 +10,12 @@ class profilesDao(object):
         self.alchemy_session = alchemy
         self.errors = []
 
-        self.user_id = None
-        self.skill_id = None
-        self.collab_id = None
-        self.week_id = None
-        # self.feedback = None  Shouldn't include this since it's not a key. it's the value we want.
-
         self._data = None
+
 
     def delete(self):
         self.alchemy_session.delete(self._data)
+
 
     def load(self,
              user_id=None,
@@ -30,18 +26,19 @@ class profilesDao(object):
         # self.results =
         q_res = self.alchemy_session.db_connection.query(profilesDB)
         if user_id:
-            q_res.filter(profilesDB.user_id == self.user_id)
+            q_res = q_res.filter(profilesDB.user_id == user_id)
 
         if skill_id:
-            q_res.filter(profilesDB.skill_id == self.skill_id)
+            q_res = q_res.filter(profilesDB.skill_id == skill_id)
 
         if collab_id:
-            q_res.filter(profilesDB.collab_id == self.collab_id)
+            q_res = q_res.filter(profilesDB.collab_id == collab_id)
 
         if week_id:
-            q_res.filter(profilesDB.week_id == self.week_id)
+            q_res = q_res.filter(profilesDB.week_id == week_id)
 
-        self._data = q_res.first()
+        self._data = q_res.all()
+
 
     def update(self,
             user_id=None,

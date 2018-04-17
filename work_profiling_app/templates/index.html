@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Hello world</title>
+    <form>
+        <select>
+        {% for i in data %}
+            <option value="{{ i }}">{{ i }}</option>
+        {% endfor %}
+        </select>
+    </form>
 </head>
 <body>
 
