@@ -5,7 +5,7 @@ from database.userProgressPlans import Base
 
 class dbConnection(object):
 
-    def __init__(self):
+    def __init__(self, dbObj):
         engine = create_engine('sqlite:///userProgressPlans.db')
         # Bind the engine to the metadata of the Base class so that the
         # declaratives can be accessed through a DBSession instance
@@ -32,22 +32,35 @@ class dbConnection(object):
             'weeklySkillSetFeedBack'
         ]
 
+        self.dbObj = dbObj
+
         self.errors = []
 
-    def newRow(self, dbObj):
-        row = dbRow(self.dbConnection, True, dbObj())
+    def newRow(self):
+        row = dbRow(self.dbConnection, True, self.dbObj())
         return row
 
-    def loadRows(self, dbObj, queries={}):
-        qRes = self.dbConnection.query(dbObj)
+    def loadRows(self, queries={}, limit = None):
+        qRes = self.dbConnection.query(self.dbObj)
+
+        # apply queries
         for key, value in queries.items():
-            if hasattr(dbObj, key):
-                a = getattr(dbObj, key)
+            if not value:
+                # skip over null values
+                continue
+
+            if hasattr(self.dbObj, key):
+                a = getattr(self.dbObj, key)
                 qRes.filter(a == value)
             else:
-                self.errors.append('Column %r not found in db %r. This filter will be ignored' % (key, dbObj.__name__))
+                self.errors.append('Column %r not found in db %r. This filter will be ignored' % (key, self.dbObj.__name__))
 
-        data = qRes.all()
+        # apply limit
+        if limit:
+            data = qRes.limit(limit)
+        else:
+            data = qRes.all()
+
         if len(data) == 1:
             return dbRow(self.dbConnection, False, data[0])
         elif len(data == 0):
