@@ -1,5 +1,5 @@
 from database.alchemy_session import alchemy_session
-from database.db_connections import userNamesDB
+from database.userProgressPlans import userNamesDB
 
 
 class usersDao(object):

@@ -1,11 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database.db_connections import Base
+from database.userProgressPlans import Base
 
 class alchemy_session:
 
     def __init__(self):
-        engine = create_engine('sqlite:///profiles.db')
+        engine = create_engine('sqlite:///userProgressPlans.db')
         # Bind the engine to the metadata of the Base class so that the
         # declaratives can be accessed through a DBSession instance
         Base.metadata.bind = engine
@@ -20,16 +20,23 @@ class alchemy_session:
         # session.rollback()
         self.db_connection = DBSession()
 
+        self._dbScheme = None # a scheme for the database to conform to.
 
-    def insert(self, row):
+        self.errors = []
+
+        self._data = None
+
+
+    def insert(self, rows):
         self.db_connection.add(row)
         self.db_connection.commit()
 
 
-    def delete(self, row):
+    def delete(self, rows):
         self.db_connection.delete(row)
         self.db_connection.commit()
 
 
-    def update(self):
+    def update(self, row):
         self.db_connection.commit()
+

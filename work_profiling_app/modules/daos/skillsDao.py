@@ -1,5 +1,5 @@
 from database.alchemy_session import alchemy_session
-from database.db_connections import skillDescriptionsDB
+from database.userProgressPlans import skillDescriptionsDB
 
 
 class skillsDao(object):
