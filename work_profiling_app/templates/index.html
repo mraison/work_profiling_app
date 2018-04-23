@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hello world</title>
-    <form>
-        <select>
-        {% for i in data %}
-            <option value="{{ i }}">{{ i }}</option>
-        {% endfor %}
-        </select>
-    </form>
-</head>
-<body>
-
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<div>
+    <div>
+        <a href="/users">Users</a>
+    </div>
+    <div>
+        <a href="/skills">Skills</a>
+    </div>
+</div>
+{% endblock content %}

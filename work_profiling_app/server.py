@@ -1,24 +1,42 @@
-from flask import Flask, request, Response, jsonify, render_template
+from flask import Flask, request
+from modules.controllers.baseController import baseController
+from modules.controllers.users.usersController import usersController
+from modules.controllers.skills.skillsController import skillsController
+
+from modules.views.baseView import baseView
 
 app = Flask(__name__)
 
+appSession = None
+
+@app.before_request
+def startSession():
+    global appSession
+    appSession = {
+        'url': request.base_url,
+        'method': request.method,
+        'returnFormat': request.args.get('format')
+    }
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html', data=[1,2,3,4])
+    c = baseController(appSession)
+    return c.index()
 
 
-@app.route('/users', methods=['POST'])
+@app.route('/users', methods=['GET', 'POST'])
 def create_user():
     # Here we should receive a name and hand back the new user
-    pass
+    c = usersController(appSession)
+    return c.index()
 
 
-@app.route('/skills', methods=['POST'])
+@app.route('/skills', methods=['GET', 'POST'])
 def create_skill():
     # expect a skill description.
     # Here we should receive a name and hand back the new user
-    pass
+    c = skillsController(appSession)
+    return c.index()
 
 
 @app.route('/users/<user_id>/skills', methods=['POST'])
@@ -44,6 +62,7 @@ def start_new_week(user_id, skill_id, collab_id):
 
 @app.route('/users/<user_id>/skills/<skill_id>/collaborators/<collab_id>/weeks/<week_id>/give_feedback', methods=['GET', 'POST'])
 def give_feedback(user_id, skill_id, collab_id, week_id):
+    # @todo Make a controller folder for this!!!
     # enter in the feed back from that collaborator for the given week for the given skill for the given user.
     # expect some numeric. (and maybe a message)
     pass
