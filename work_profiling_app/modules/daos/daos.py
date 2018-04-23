@@ -4,7 +4,8 @@ from database.userProgressPlans import \
     collaboratorMappedToCollabSet, \
     goalsMappedToGoalSets, \
     goals, \
-    weeklySkillSetFeedBack
+    weeklySkillSetFeedBack, \
+    users
 from database.dbConnection import dbConnection
 
 
@@ -78,6 +79,60 @@ class userSkillProgressPlanDao(object):
 
         if goalSetId:
             self.row._data.goalSetId = goalSetId
+
+        self.row.commit()
+
+
+class usersDao(object):
+    def __init__(self, dbObj=None):
+        if dbObj is None:
+            dbObj = users
+
+        self.dbConnection = dbConnection(dbObj)
+        self.row = None
+        # Let's garentee we'll only be getting one row. Think it makes sense
+        # to only be dealing with one at a time.
+        self.rowLimit = 1
+
+    def delete(self):
+        if self.row:
+            self.row.delet()
+
+    def load(self,
+             userId=None,
+             userName=None
+    ):
+        # self.results =
+        self.row = self.dbConnection.loadRows(
+            {
+                'userId': userId,
+                'userName': userName
+            },
+            self.rowLimit
+        )
+
+    def update(self,
+               userName=None,
+               userFullName=None
+    ):
+        if userName:
+            self.row._data.userName = userName
+
+        if userFullName:
+            self.row._data.userFullName = userFullName
+
+        self.row.commit()
+
+    def create(self,
+               userName=None,
+               userFullName=None
+    ):
+        self.row = self.dbConnection.newRow()
+        if userName:
+            self.row._data.userName = userName
+
+        if userFullName:
+            self.row._data.userFullName = userFullName
 
         self.row.commit()
 

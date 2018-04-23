@@ -15,7 +15,9 @@ def startSession():
     appSession = {
         'url': request.base_url,
         'method': request.method,
-        'returnFormat': request.args.get('format')
+        'returnFormat': request.args.get('format'),
+        'postData': request.form,
+        'urlArgs': request.args
     }
 
 @app.route('/', methods=['GET', 'POST'])
@@ -28,7 +30,10 @@ def index():
 def create_user():
     # Here we should receive a name and hand back the new user
     c = usersController(appSession)
-    return c.index()
+    if appSession['method' == 'POST']:
+        return c.createUser()
+    else:
+        return c.index()
 
 
 @app.route('/skills', methods=['GET', 'POST'])

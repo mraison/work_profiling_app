@@ -2,4 +2,19 @@
 {% extends "index.html" -%}
 {% block content -%}
 <div>Users page</div>
+<form>
+    Add user: <input type="text" name="fullName">
+    <input type="submit" value="Submit">
+</form>
+<div>
+    <div>
+        user id: {{userId}}
+    </div>
+    <div>
+        user name: {{userName}}
+    </div>
+    <div>
+        user full name: {{userFullName}}
+    </div>
+</div>
 {%- endblock content %}

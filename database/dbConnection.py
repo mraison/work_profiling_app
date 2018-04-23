@@ -74,23 +74,23 @@ class dbRow(object):
     def __init__(self, dbConnection, _isNew = True, _data = None):
         self._dbConnection = dbConnection
         self._isNew = _isNew
-        self._data = _data
+        self.data = _data
 
     def commit(self):
-        if not self._data:
+        if not self.data:
             return False
 
         if self._isNew:
-            self._dbConnection.add(self._data)
+            self._dbConnection.add(self.data)
             self._isNew = False
 
         self._dbConnection.commit()
         return True
 
     def delete(self):
-        self._dbConnection.delete(self._data)
+        self._dbConnection.delete(self.data)
         self._dbConnection.commit()
-        self._data = None
+        self.data = None
         return True
 
 
