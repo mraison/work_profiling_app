@@ -30,7 +30,7 @@ def index():
 def create_user():
     # Here we should receive a name and hand back the new user
     c = usersController(appSession)
-    if appSession['method' == 'POST']:
+    if appSession['method'] == 'POST':
         return c.createUser()
     else:
         return c.index()

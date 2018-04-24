@@ -2,9 +2,16 @@
 {% extends "index.html" -%}
 {% block content -%}
 <div>Users page</div>
-<form>
+<form method="post">
     Add user: <input type="text" name="fullName">
     <input type="submit" value="Submit">
+</form>
+<form>
+    <select name="userId">
+        {% for i in activeUsers %}
+            <option value="{{ i.data.userId }}">{{ i.data.userFullName }}</option>
+        {% endfor %}
+    </select>
 </form>
 <div>
     <div>

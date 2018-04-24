@@ -49,16 +49,16 @@ class userSkillProgressPlanDao(object):
                goalSetId=None
     ):
         if userId:
-            self.row._data.userId = userId
+            self.row.data.userId = userId
 
         if skillSetId:
-            self.row._data.skillSetId = skillSetId
+            self.row.data.skillSetId = skillSetId
 
         if collabSetId:
-            self.row._data.collabSetId = collabSetId
+            self.row.data.collabSetId = collabSetId
 
         if goalSetId:
-            self.row._data.goalSetId = goalSetId
+            self.row.data.goalSetId = goalSetId
 
         self.row.commit()
 
@@ -70,16 +70,16 @@ class userSkillProgressPlanDao(object):
     ):
         self.row = self.dbConnection.newRow()
         if userId:
-            self.row._data.userId = userId
+            self.row.data.userId = userId
 
         if skillSetId:
-            self.row._data.skillSetId = skillSetId
+            self.row.data.skillSetId = skillSetId
 
         if collabSetId:
-            self.row._data.collabSetId = collabSetId
+            self.row.data.collabSetId = collabSetId
 
         if goalSetId:
-            self.row._data.goalSetId = goalSetId
+            self.row.data.goalSetId = goalSetId
 
         self.row.commit()
 
@@ -117,10 +117,10 @@ class usersDao(object):
                userFullName=None
     ):
         if userName:
-            self.row._data.userName = userName
+            self.row.data.userName = userName
 
         if userFullName:
-            self.row._data.userFullName = userFullName
+            self.row.data.userFullName = userFullName
 
         self.row.commit()
 
@@ -130,10 +130,10 @@ class usersDao(object):
     ):
         self.row = self.dbConnection.newRow()
         if userName:
-            self.row._data.userName = userName
+            self.row.data.userName = userName
 
         if userFullName:
-            self.row._data.userFullName = userFullName
+            self.row.data.userFullName = userFullName
 
         self.row.commit()
 
@@ -172,10 +172,10 @@ class skillsMappedToSkillSetDao(object):
                skillSetId=None
                ):
         if skillId:
-            self.row._data.skillId = skillId
+            self.row.data.skillId = skillId
 
         if skillSetId:
-            self.row._data.skillSetId = skillSetId
+            self.row.data.skillSetId = skillSetId
 
         self.row.commit()
 
@@ -185,10 +185,10 @@ class skillsMappedToSkillSetDao(object):
                ):
         self.row = self.dbConnection.newRow()
         if skillId:
-            self.row._data.skillId = skillId
+            self.row.data.skillId = skillId
 
         if skillSetId:
-            self.row._data.skillSetId = skillSetId
+            self.row.data.skillSetId = skillSetId
 
         self.row.commit()
 
@@ -227,10 +227,10 @@ class collaboratorMappedToCollabSetDao(object):
                collabSetId=None
                ):
         if collaboratorId:
-            self.row._data.collaboratorId = collaboratorId
+            self.row.data.collaboratorId = collaboratorId
 
         if collabSetId:
-            self.row._data.collabSetId = collabSetId
+            self.row.data.collabSetId = collabSetId
 
         self.row.commit()
 
@@ -240,10 +240,10 @@ class collaboratorMappedToCollabSetDao(object):
                ):
         self.row = self.dbConnection.newRow()
         if collaboratorId:
-            self.row._data.collaboratorId = collaboratorId
+            self.row.data.collaboratorId = collaboratorId
 
         if collabSetId:
-            self.row._data.collabSetId = collabSetId
+            self.row.data.collabSetId = collabSetId
 
         self.row.commit()
 
@@ -282,10 +282,10 @@ class goalsMappedToGoalSetsDao(object):
                goalSetId=None
                ):
         if goalId:
-            self.row._data.goalId = goalId
+            self.row.data.goalId = goalId
 
         if goalSetId:
-            self.row._data.goalSetId = goalSetId
+            self.row.data.goalSetId = goalSetId
 
         self.row.commit()
 
@@ -295,10 +295,10 @@ class goalsMappedToGoalSetsDao(object):
                ):
         self.row = self.dbConnection.newRow()
         if goalId:
-            self.row._data.goalId = goalId
+            self.row.data.goalId = goalId
 
         if goalSetId:
-            self.row._data.goalSetId = goalSetId
+            self.row.data.goalSetId = goalSetId
 
         self.row.commit()
 
@@ -338,13 +338,13 @@ class goalsDao(object):
                skillLevel=None
                ):
         if goalId:
-            self.row._data.goalId = goalId
+            self.row.data.goalId = goalId
 
         if skillId:
-            self.row._data.skillId = skillId
+            self.row.data.skillId = skillId
 
         if skillLevel:
-            self.row._data.skillLevel = skillLevel
+            self.row.data.skillLevel = skillLevel
 
         self.row.commit()
 
@@ -355,13 +355,13 @@ class goalsDao(object):
                ):
         self.row = self.dbConnection.newRow()
         if goalId:
-            self.row._data.goalId = goalId
+            self.row.data.goalId = goalId
 
         if skillId:
-            self.row._data.skillId = skillId
+            self.row.data.skillId = skillId
 
         if skillLevel:
-            self.row._data.skillLevel = skillLevel
+            self.row.data.skillLevel = skillLevel
 
         self.row.commit()
 
@@ -409,19 +409,19 @@ class weeklySkillSetFeedBackDao(object):
                collaboratorId=None
                ):
         if userId:
-            self.row._data.userId = userId
+            self.row.data.userId = userId
 
         if weekId:
-            self.row._data.weekId = weekId
+            self.row.data.weekId = weekId
 
         if skillSetId:
-            self.row._data.skillSetId = skillSetId
+            self.row.data.skillSetId = skillSetId
 
         if skillId:
-            self.row._data.skillId = skillId
+            self.row.data.skillId = skillId
 
         if collaboratorId:
-            self.row._data.collaboratorId = collaboratorId
+            self.row.data.collaboratorId = collaboratorId
 
         self.row.commit()
 
@@ -434,18 +434,18 @@ class weeklySkillSetFeedBackDao(object):
                ):
         self.row = self.dbConnection.newRow()
         if userId:
-            self.row._data.userId = userId
+            self.row.data.userId = userId
 
         if weekId:
-            self.row._data.weekId = weekId
+            self.row.data.weekId = weekId
 
         if skillSetId:
-            self.row._data.skillSetId = skillSetId
+            self.row.data.skillSetId = skillSetId
 
         if skillId:
-            self.row._data.skillId = skillId
+            self.row.data.skillId = skillId
 
         if collaboratorId:
-            self.row._data.collaboratorId = collaboratorId
+            self.row.data.collaboratorId = collaboratorId
 
         self.row.commit()

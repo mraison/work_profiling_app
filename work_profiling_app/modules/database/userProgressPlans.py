@@ -21,7 +21,7 @@ class users(Base):
 
     userId = Column(Integer, primary_key=True)
     userFullName = Column(String)
-    userName = Column(String)
+    userName = Column(String, nullable=False)
     __table_args__ = (UniqueConstraint('userName', name='_username_uc'),
                       )
 

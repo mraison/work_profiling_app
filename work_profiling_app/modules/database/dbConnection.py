@@ -65,7 +65,7 @@ class dbConnection(object):
 
         if len(data) == 1:
             return dbRow(self.dbConnection, False, data[0])
-        elif len(data == 0):
+        elif len(data) == 0:
             return False
         else:
             return dbRows([dbRow(self.dbConnection, False, d) for d in data])
@@ -98,25 +98,25 @@ class dbRow(object):
 
 class dbRows(object):
     def __init__(self, rows=[]):
-        self._rows = rows # expect these to be of type dbRow
+        self.rows = rows # expect these to be of type dbRow
 
     def commit(self):
-        if not self._rows:
+        if not self.rows:
             return False
 
-        for row in self._rows:
+        for row in self.rows:
             row.commit()
 
         return True
 
     def delete(self):
-        if not self._rows:
+        if not self.rows:
             return False
 
-        for row in self._rows:
+        for row in self.rows:
             row.delete()
 
-        self._rows = []
+        self.rows = []
         return True
 
 
