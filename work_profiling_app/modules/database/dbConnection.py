@@ -1,7 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.attributes import InstrumentedAttribute
-from database.userProgressPlans import Base
+
+from .userProgressPlans import Base
+
 
 class dbConnection(object):
 

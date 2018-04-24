@@ -1,4 +1,4 @@
-from database.userProgressPlans import \
+from ..database.userProgressPlans import \
     userSkillProgressPlan, \
     skillsMappedToSkillSet, \
     collaboratorMappedToCollabSet, \
@@ -6,7 +6,8 @@ from database.userProgressPlans import \
     goals, \
     weeklySkillSetFeedBack, \
     users
-from database.dbConnection import dbConnection
+
+from ..database.dbConnection import dbConnection
 
 
 class userSkillProgressPlanDao(object):
