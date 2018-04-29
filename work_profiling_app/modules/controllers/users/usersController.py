@@ -1,48 +1,32 @@
 from ..baseController import baseController
 from ...views.users.userView import usersView
-from ...daos.daos import usersDao
-
-from ...database.dbConnection import dbRow
+from ...models.users.usersModel import usersModel
+from ...models.users.usersCollection import usersCollection
 
 class usersController(baseController):
     def index(self):
-        usersd = usersDao()
-        usersd.rowLimit = None
-        usersd.load()
-        if usersd.row is None:
-            userMod = []
-        elif isinstance(usersd.row, dbRow):
-            userMod = [usersd.row]
-        else:
-            userMod = usersd.row.rows
+        users = usersCollection()
+        users.load()
 
-        view = usersView(self.appSession['returnFormat'], {'activeUsers': userMod})
+        view = usersView(self.appSession['returnFormat'], {'activeUsers': users})
         return view.render()
 
     def createUser(self):
         if self.appSession['postData']['fullName']:
             fullName = self.appSession['postData']['fullName']
-            dao = usersDao()
-
             uname = self._generate_uname(fullName)
-            dao.create(uname, fullName)
+            newUser = usersModel()
 
-            dao.rowLimit = None
-            dao.load()
-            if dao.row is None:
-                userMod = []
-            elif isinstance(dao.row, dbRow):
-                userMod = [dao.row]
-            else:
-                userMod = dao.row
+            newUser.createNewUser(uname, fullName)
+
+            users = usersCollection()
+            users.load()
 
             view = usersView(
                 self.appSession['returnFormat'],
                 {
-                    'userId': dao.row.data.userId,
-                    'userFullName': dao.row.data.userFullName,
-                    'userName': dao.row.data.userName,
-                    'activeUsers': userMod
+                    'activeUsers': users,
+                    'newUser': newUser
                 }
             )
 

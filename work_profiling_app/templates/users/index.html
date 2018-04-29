@@ -8,20 +8,22 @@
 </form>
 <form>
     <select name="userId">
-        {% for i in activeUsers %}
-            <option value="{{ i.data.userId }}">{{ i.data.userFullName }}</option>
+        {% for m in activeUsers.models %}
+            <option value="{{ m.data.userId }}">{{ m.data.userFullName }}</option>
         {% endfor %}
     </select>
 </form>
 <div>
-    <div>
-        user id: {{userId}}
-    </div>
-    <div>
-        user name: {{userName}}
-    </div>
-    <div>
-        user full name: {{userFullName}}
-    </div>
+    {% if newUser: %}
+        <div>
+            user id: {{newUser.data.userId}}
+        </div>
+        <div>
+            user name: {{newUser.data.userName}}
+        </div>
+        <div>
+            user full name: {{newUser.data.userFullName}}
+        </div>
+    {% endif %}
 </div>
 {%- endblock content %}

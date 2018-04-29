@@ -38,11 +38,18 @@ class dbConnection(object):
 
         self.errors = []
 
-    def newRow(self):
-        row = dbRow(self.dbConnection, True, self.dbObj())
-        return row
+    def insertRow(self, row):
+        # assume row is instance of whatever dbObj is.
+        self.dbConnection.add(row)
+        self.dbConnection.commit()
 
-    def loadRows(self, queries={}, limit = None):
+    def insertRows(self, rows):
+        for r in rows:
+            self.dbConnection.add(r)
+
+        self.dbConnection.commit()
+
+    def query(self, queries={}, limit = None):
         qRes = self.dbConnection.query(self.dbObj)
 
         # apply queries
@@ -63,81 +70,21 @@ class dbConnection(object):
         else:
             data = qRes.all()
 
-        if len(data) == 1:
-            return dbRows(dbRow(self.dbConnection, False, data[0]))
-        elif len(data) == 0:
-            return False
-        else:
-            return dbRows([dbRow(self.dbConnection, False, d) for d in data])
+        return data
 
+    def deleteRow(self, row):
+        # assume row is instance of whatever dbObj is.
+        self.dbConnection.delete(self.data)
+        self.dbConnection.commit()
 
-class dbRow(object):
+    def deleteRows(self, rows):
+        for r in rows:
+            self.dbConnection.delete(r)
 
-    def __init__(self, dbConnection, _isNew = True, _data = None):
-        self._dbConnection = dbConnection
-        self._isNew = _isNew
-        self.data = _data
+        self.dbConnection.commit()
 
-    def commit(self):
-        if not self.data:
-            return False
-
-        if self._isNew:
-            self._dbConnection.add(self.data)
-            self._isNew = False
-
-        self._dbConnection.commit()
-        return True
-
-    def delete(self):
-        self._dbConnection.delete(self.data)
-        self._dbConnection.commit()
-        self.data = None
-        return True
-
-
-class dbRows(object):
-    def __init__(self, rows=[]):
-        self.rows = rows # expect these to be of type dbRow
-
-    def addRow(self, row):
-        # expect row to be instance of dbRow
-        self.rows.append(row)
-
-    def addRows(self, rows):
-        # expect rows to be instance of dbRows
-        for row in rows.rows:
-            self.addRow(row)
-
-    def drop(self, rowIndex):
-        if self.rows[rowIndex]:
-            del self.rows[rowIndex]
-
-    def commitAll(self):
-        if not self.rows:
-            return False
-
-        for row in self.rows:
-            row.commit()
-
-        return True
-
-    def deleteAll(self):
-        if not self.rows:
-            return False
-
-        for row in self.rows:
-            row.delete()
-
-        self.rows = []
-        return True
-
-    def count(self):
-        return len(self.rows)
-
-    def getFirst(self):
-        if self.rows[0]:
-            return self.rows[0]
+    def _createNewRowInstance(self):
+        return self.dbObj()
 
 
 class dbScheme(object):
