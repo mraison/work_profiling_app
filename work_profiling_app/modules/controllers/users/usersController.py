@@ -17,7 +17,7 @@ class usersController(baseController):
             uname = self._generate_uname(fullName)
             newUser = usersModel()
 
-            newUser.createNewUser(uname, fullName)
+            newUser.createNewSkill(uname, fullName)
 
             users = usersCollection()
             users.load()

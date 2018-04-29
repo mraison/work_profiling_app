@@ -38,10 +38,12 @@ def create_user():
 
 @app.route('/skills', methods=['GET', 'POST'])
 def create_skill():
-    # expect a skill description.
     # Here we should receive a name and hand back the new user
     c = skillsController(appSession)
-    return c.index()
+    if appSession['method'] == 'POST':
+        return c.createSkills()
+    else:
+        return c.index()
 
 
 @app.route('/users/<user_id>/skills', methods=['POST'])

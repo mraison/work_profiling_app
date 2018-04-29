@@ -1,5 +1,30 @@
 <!DOCTYPE html>
 {% extends "index.html" -%}
 {% block content -%}
-<div>Skills page</div>
+<div>Users page</div>
+<form method="post">
+    Add skill: <input type="text" name="skillName">
+    Add description: <input type="text" name="skillDescription">
+    <input type="submit" value="Submit">
+</form>
+<form>
+    <select name="skillId">
+        {% for m in activeSkills.models %}
+            <option value="{{ m.data.skillId }}">{{ m.data.skillName }}</option>
+        {% endfor %}
+    </select>
+</form>
+<div>
+    {% if newUser: %}
+        <div>
+            skill id: {{newSkill.data.skillId}}
+        </div>
+        <div>
+            skill name: {{newSkill.data.skillName}}
+        </div>
+        <div>
+            skill description: {{newSkill.data.skillDescription}}
+        </div>
+    {% endif %}
+</div>
 {%- endblock content %}

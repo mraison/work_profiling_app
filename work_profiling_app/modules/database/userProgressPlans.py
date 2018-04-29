@@ -20,10 +20,16 @@ class users(Base):
     __tablename__ = 'users'
 
     userId = Column(Integer, primary_key=True)
-    userFullName = Column(String)
-    userName = Column(String, nullable=False)
-    __table_args__ = (UniqueConstraint('userName', name='_username_uc'),
-                      )
+    userFullName = Column(String, nullable=False)
+    userName = Column(String, nullable=False, unique=True)
+
+
+class skills(Base):
+    __tablename__ = 'skills'
+
+    skillId = Column(Integer, primary_key=True)
+    skillName = Column(String, nullable=False, unique=True)
+    skillDescription = Column(String, nullable=False)
 
 
 class skillsMappedToSkillSet(Base):

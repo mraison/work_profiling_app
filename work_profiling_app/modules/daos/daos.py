@@ -5,13 +5,10 @@ from ..database.userProgressPlans import \
     goalsMappedToGoalSets, \
     goals, \
     weeklySkillSetFeedBack, \
-    users
+    users, \
+    skills
 
 from ..database.dbConnection import dbConnection
-
-
-class userSkillProgressPlanDao(object):
-    pass
 
 
 class usersDao(dbConnection):
@@ -54,6 +51,53 @@ class usersDao(dbConnection):
         super(usersDao, self).insertRow(row)
         return row
 
+
+class skillsDao(dbConnection):
+    def __init__(self):
+        super().__init__(skills)
+        # Let's garentee we'll only be getting one row. Think it makes sense
+        # to only be dealing with one at a time.
+        # self.rowLimit = 1
+
+    def deleteRow(self, row):
+        if isinstance(row, users):
+            super(skillsDao, self).deleteRow(row)
+        else:
+            return False
+
+    def query(self,
+              skillId=None,
+              skillName=None,
+              skillDescription=None,
+              rowLimit=1
+              ):
+        q = {}
+        if skillId:
+            q['skillId'] = skillId
+        if skillName:
+            q['skillName'] = skillName
+        if skillDescription:
+            q['skillDescription'] = skillDescription
+
+        # self.results =
+        return super(skillsDao, self).query(
+            q,
+            rowLimit
+        )
+
+    def insertRow(self,
+                  skillName=None,
+                  skillDescription=None
+                  ):
+        row = super(skillsDao, self)._createNewRowInstance()
+        row.skillName = skillName
+        row.skillDescription = skillDescription
+        super(skillsDao, self).insertRow(row)
+        return row
+
+
+class userSkillProgressPlanDao(object):
+    pass
 
 
 class skillsMappedToSkillSetDao(object):
