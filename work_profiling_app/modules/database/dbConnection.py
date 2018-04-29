@@ -64,7 +64,7 @@ class dbConnection(object):
             data = qRes.all()
 
         if len(data) == 1:
-            return dbRow(self.dbConnection, False, data[0])
+            return dbRows(dbRow(self.dbConnection, False, data[0]))
         elif len(data) == 0:
             return False
         else:
@@ -100,7 +100,20 @@ class dbRows(object):
     def __init__(self, rows=[]):
         self.rows = rows # expect these to be of type dbRow
 
-    def commit(self):
+    def addRow(self, row):
+        # expect row to be instance of dbRow
+        self.rows.append(row)
+
+    def addRows(self, rows):
+        # expect rows to be instance of dbRows
+        for row in rows.rows:
+            self.addRow(row)
+
+    def drop(self, rowIndex):
+        if self.rows[rowIndex]:
+            del self.rows[rowIndex]
+
+    def commitAll(self):
         if not self.rows:
             return False
 
@@ -109,7 +122,7 @@ class dbRows(object):
 
         return True
 
-    def delete(self):
+    def deleteAll(self):
         if not self.rows:
             return False
 
@@ -118,6 +131,13 @@ class dbRows(object):
 
         self.rows = []
         return True
+
+    def count(self):
+        return len(self.rows)
+
+    def getFirst(self):
+        if self.rows[0]:
+            return self.rows[0]
 
 
 class dbScheme(object):
