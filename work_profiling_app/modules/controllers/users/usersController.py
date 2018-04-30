@@ -2,6 +2,7 @@ from ..baseController import baseController
 from ...views.users.userView import usersView
 from ...models.users.usersModel import usersModel
 from ...models.users.usersCollection import usersCollection
+from flask import render_template
 
 class usersController(baseController):
     def index(self):
@@ -34,6 +35,12 @@ class usersController(baseController):
         else:
             # If we didn't get any post data then just return the usual view I think...
             return self.index()
+
+    def user(self, userId):
+        model = usersModel()
+        model.load(userId=userId)
+
+        return render_template('users/user.html', version='v0.1.0', **{'user': model})
 
     def _generate_uname(self, fullName):
         fullNameA = fullName.lower().split()

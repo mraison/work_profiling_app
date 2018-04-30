@@ -16,7 +16,7 @@ class skillsModel(object):
              skillName=None,
              skillDescription=None
              ):
-        self.data = self._dao.query(skillId, skillName, skillDescription, 1)
+        self.data = self._dao.query(skillId, skillName, skillDescription, 1)[0]
 
     def createNewSkill(self,
                        skillName=None,

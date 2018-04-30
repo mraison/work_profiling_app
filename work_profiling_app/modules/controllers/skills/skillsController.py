@@ -2,6 +2,7 @@ from ..baseController import baseController
 from ...views.skills.skillsView import skillsView
 from ...models.skills.skillsModel import skillsModel
 from ...models.skills.skillsCollection import skillsCollection
+from flask import render_template
 
 class skillsController(baseController):
     def index(self):
@@ -34,3 +35,9 @@ class skillsController(baseController):
         else:
             # If we didn't get any post data then just return the usual view I think...
             return self.index()
+
+    def skill(self, skillId):
+        model = skillsModel()
+        model.load(skillId=skillId)
+
+        return render_template('skills/skill.html', version='v0.1.0', **{'skill': model})

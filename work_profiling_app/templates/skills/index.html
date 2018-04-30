@@ -7,13 +7,9 @@
     Add description: <input type="text" name="skillDescription">
     <input type="submit" value="Submit">
 </form>
-<form>
-    <select name="skillId">
-        {% for m in activeSkills.models %}
-            <option value="{{ m.data.skillId }}">{{ m.data.skillName }}</option>
-        {% endfor %}
-    </select>
-</form>
+{% for m in activeSkills.models %}
+    <a href="skills/{{ m.data.skillId }}">{{ m.data.skillName }}</a>
+{% endfor %}
 <div>
     {% if newUser: %}
         <div>

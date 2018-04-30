@@ -27,7 +27,7 @@ def index():
 
 
 @app.route('/users', methods=['GET', 'POST'])
-def create_user():
+def users():
     # Here we should receive a name and hand back the new user
     c = usersController(appSession)
     if appSession['method'] == 'POST':
@@ -37,7 +37,7 @@ def create_user():
 
 
 @app.route('/skills', methods=['GET', 'POST'])
-def create_skill():
+def skills():
     # Here we should receive a name and hand back the new user
     c = skillsController(appSession)
     if appSession['method'] == 'POST':
@@ -45,6 +45,18 @@ def create_skill():
     else:
         return c.index()
 
+@app.route('/users/<userId>', methods=['GET', 'POST'])
+def user(userId):
+    # Here we should receive a name and hand back the new user
+    c = usersController(appSession)
+    return c.user(userId)
+
+
+@app.route('/skills/<skillId>', methods=['GET', 'POST'])
+def skill(skillId):
+    # Here we should receive a name and hand back the new user
+    c = skillsController(appSession)
+    return c.skill(skillId)
 
 @app.route('/users/<user_id>/skills', methods=['POST'])
 def add_new_skill_for_user(user_id):

@@ -40,8 +40,8 @@ class usersDao(dbConnection):
 
         # self.results =
         return super(usersDao, self).query(
-            q,
-            rowLimit
+            queries=q,
+            limit=rowLimit
         )
 
     def insertRow(self, userName=None, userFullName=None):

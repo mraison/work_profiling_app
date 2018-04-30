@@ -12,7 +12,7 @@ class usersModel(object):
         self.data=None
 
     def load(self, userId=None, userName=None, userFullName=None):
-        self.data = self._dao.query(userId, userName, userFullName, 1)
+        self.data = self._dao.query(userId, userName, userFullName, 1)[0]
 
     def createNewUser(self, userName, userFullName):
         self.data = self._dao.insertRow(userName, userFullName)

@@ -6,13 +6,9 @@
     Add user: <input type="text" name="fullName">
     <input type="submit" value="Submit">
 </form>
-<form>
-    <select name="userId">
-        {% for m in activeUsers.models %}
-            <option value="{{ m.data.userId }}">{{ m.data.userFullName }}</option>
-        {% endfor %}
-    </select>
-</form>
+{% for m in activeUsers.models %}
+    <a href="users/{{ m.data.userId }}">{{ m.data.userFullName }}</a>
+{% endfor %}
 <div>
     {% if newUser: %}
         <div>
