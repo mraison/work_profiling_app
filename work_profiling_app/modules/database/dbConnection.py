@@ -1,6 +1,8 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, and_, or_
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.attributes import InstrumentedAttribute
+from ..daos.daos import users
+from pprint import pprint
 
 from .userProgressPlans import Base
 
@@ -50,9 +52,8 @@ class dbConnection(object):
         self.dbConnection.commit()
 
     def query(self, queries={}, limit = None):
-        qRes = self.dbConnection.query(self.dbObj)
-
         # apply queries
+        filterGroup=list()
         for key, value in queries.items():
             if not value:
                 # skip over null values
@@ -60,10 +61,13 @@ class dbConnection(object):
 
             if hasattr(self.dbObj, key):
                 a = getattr(self.dbObj, key)
-                qRes.filter(a == value)
+                filterGroup.append(a.__eq__(value))
             else:
                 self.errors.append('Column %r not found in db %r. This filter will be ignored' % (key, self.dbObj.__name__))
 
+
+        # return filterParams
+        qRes = self.dbConnection.query(self.dbObj).filter(and_(*filterGroup))
         # apply limit
         if limit:
             data = qRes.limit(limit)
