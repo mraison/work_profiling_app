@@ -38,6 +38,8 @@ class skillsMappedToSkillSet(Base):
 
     skillSetId = Column(Integer, primary_key=True)
     skillId = Column(Integer, primary_key=True, nullable=False, default=None)
+    ## This should be linked to what you want to work on. i.e. work life, a project, etc.
+    skillSetName = Column(String, nullable=False, unique=True)
 
 
 class collaboratorMappedToCollabSet(Base):
@@ -46,6 +48,8 @@ class collaboratorMappedToCollabSet(Base):
 
     collabSetId = Column(Integer, primary_key=True)
     collaboratorId = Column(Integer, primary_key=True, nullable=False, default=None)
+    collabAssocSkillSetId = Column(Integer, primary_key=True)
+    collabSetName = Column(String, nullable=False) ## this will need a foreign key dependency on skillSetName
 
 
 class goalsMappedToGoalSets(Base):
@@ -54,6 +58,7 @@ class goalsMappedToGoalSets(Base):
 
     goalSetId = Column(Integer, primary_key=True)
     goalId = Column(Integer, primary_key=True, nullable=False, default=None)
+    goalSetName = Column(String, nullable=False) ## this will need a foreign key dependency on skillSetName
 
 
 class goals(Base):

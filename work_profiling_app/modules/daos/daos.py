@@ -100,8 +100,48 @@ class userSkillProgressPlanDao(object):
     pass
 
 
-class skillsMappedToSkillSetDao(object):
-    pass
+class skillsMappedToSkillSetDao(dbConnection):
+    def __init__(self):
+        super().__init__(skillsMappedToSkillSet)
+        # Let's garentee we'll only be getting one row. Think it makes sense
+        # to only be dealing with one at a time.
+        # self.rowLimit = 1
+
+    def deleteRow(self, row):
+        if isinstance(row, users):
+            super(skillsMappedToSkillSetDao, self).deleteRow(row)
+        else:
+            return False
+
+    def query(self,
+              skillSetId=None,
+              skillSetName=None,
+              rowLimit=1
+              ):
+        q = {}
+        if skillSetId:
+            q['skillSetId'] = skillSetId
+        if skillSetName:
+            q['skillSetName'] = skillSetName
+
+        return super(skillsMappedToSkillSetDao, self).query(
+            q,
+            rowLimit
+        )
+
+    def insertRow(self,
+                  skillSetName=None,
+                  skillId=None,
+                  skillSetId=None
+                  ):
+        row = super(skillsMappedToSkillSetDao, self)._createNewRowInstance()
+        row.skillSetName = skillSetName
+        row.skillId = skillId
+        if skillSetId:
+            row.skillSetId = skillSetId
+        ## We're going to let skillSetId be set by the table automatically.
+        super(skillsMappedToSkillSetDao, self).insertRow(row)
+        return row
 
 
 class collaboratorMappedToCollabSetDao(object):
