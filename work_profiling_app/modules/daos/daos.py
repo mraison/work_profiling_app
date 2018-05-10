@@ -131,12 +131,12 @@ class skillsMappedToSkillSetDao(dbConnection):
 
     def insertRow(self,
                   skillSetName=None,
-                  skillId=None,
+                  skillIds=None,
                   skillSetId=None
                   ):
         row = super(skillsMappedToSkillSetDao, self)._createNewRowInstance()
         row.skillSetName = skillSetName
-        row.skillId = skillId
+        row.skillIds = skillIds
         if skillSetId:
             row.skillSetId = skillSetId
         ## We're going to let skillSetId be set by the table automatically.
