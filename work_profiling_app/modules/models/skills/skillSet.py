@@ -1,4 +1,4 @@
-from skillsCollection import skillsCollection
+from .skillsCollection import skillsCollection
 from ...daos.daos import skillsMappedToSkillSetDao
 
 
@@ -35,10 +35,9 @@ class skillSet(skillsCollection):
             super(skillSet, self).load(skillId)
             self.skillIds+=str(',' + skillId)
 
-    def saveNew(self,
-             skillSetName
-             ):
-        self.skillSetDao.insertRow(skillSetName, self.skillIds)
+    def saveNew(self):
+        if self.skillSetName and self.skillIds:
+            self.skillSetData = self.skillSetDao.insertRow(self.skillSetName, self.skillIds)
 
     def update(self,
                skillSetName=None

@@ -1,7 +1,9 @@
 from flask import Flask, request
+from flask import jsonify
 from modules.controllers.baseController import baseController
 from modules.controllers.users.usersController import usersController
 from modules.controllers.skills.skillsController import skillsController
+import json
 
 from modules.views.baseView import baseView
 
@@ -44,6 +46,17 @@ def skills():
         return c.createSkills()
     else:
         return c.index()
+
+
+@app.route('/skillSet', methods=['GET', 'POST'])
+def skillSets():
+    return jsonify(appSession)
+    # Here we should receive a name and hand back the new user
+    c = skillsController(appSession)
+    # if appSession['method'] == 'POST':
+    return c.createSkillSets()
+    # else:
+    #     return c.index()
 
 @app.route('/users/<userId>', methods=['GET', 'POST'])
 def user(userId):
