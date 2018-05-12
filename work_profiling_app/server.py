@@ -38,8 +38,9 @@ def users():
         return c.index()
 
 
-@app.route('/skills', methods=['GET', 'POST'])
+@app.route('/skill', methods=['GET', 'POST'])
 def skills():
+    appSession['returnFormat'] = 'json'
     # Here we should receive a name and hand back the new user
     c = skillsController(appSession)
     if appSession['method'] == 'POST':
@@ -48,9 +49,10 @@ def skills():
         return c.index()
 
 
-@app.route('/skillSet', methods=['GET', 'POST'])
+@app.route('/skillSet', methods=['POST'])
 def skillSets():
-    return jsonify(appSession)
+    # return jsonify(appSession)
+    appSession['returnFormat'] = 'json'
     # Here we should receive a name and hand back the new user
     c = skillsController(appSession)
     # if appSession['method'] == 'POST':

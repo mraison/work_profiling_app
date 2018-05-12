@@ -37,7 +37,7 @@ class skillsMappedToSkillSet(Base):
     # Here we'll define which skills are in a skill set.
 
     skillSetId = Column(Integer, primary_key=True)
-    skillIds = Column(String, nullable=False, default=None)
+    skillIds = Column(String, nullable=False)
     ## This should be linked to what you want to work on. i.e. work life, a project, etc.
     skillSetName = Column(String, nullable=False, unique=True)
 

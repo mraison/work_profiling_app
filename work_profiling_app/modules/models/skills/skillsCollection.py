@@ -1,4 +1,5 @@
 from ..skills.skillsModel import skillsModel
+from ...daos.daos import skillsDao
 
 class skillsCollection(object):
     def __init__(self, dao=None):
